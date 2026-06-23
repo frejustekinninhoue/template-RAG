@@ -1,9 +1,6 @@
-# T
-
+# Template de production 
 
 Construit avec FastAPI + LangGraph + PageIndex + Ragas + Rival AI.
-
-Article compagnon : *[J’ai construit un bot de support IA prêt pour la production. Voici chaque décision que j’ai prise.]()*
 
 ---
 
@@ -56,7 +53,7 @@ POST /query
 
 ```bash
 git clone https://github.com/your-handle/apple-support-bot
-cd production-ai-app
+cd production-ai-ap
 cp .env.example .env
 # Renseignez vos clés API dans .env
 ```
