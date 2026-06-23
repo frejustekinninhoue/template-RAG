@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: /path/to/your/frontend-repo
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - BACKEND_URL=http://backend:8000
+      - NEXT_PUBLIC_AUTH_ENABLED=true
+    volumes:
+      - /path/to/your/frontend-repo:/app
+      - /app/node_modules
+    networks:
+      - rag_net
+
+  backend:
+    build:
+      context: /path/to/production-ai-app
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - /path/to/production-ai-app/.env
+    networks:
+      - rag_net
+
+networks:
+  rag_net:
+    driver: bridge

@@ -1,0 +1,16 @@
+# Next.js development image
+FROM node:20-alpine
+WORKDIR /app
+
+COPY package.json package-lock.json* pnpm-lock.yaml* bun.lockb* yarn.lock* ./
+RUN if [ -f package-lock.json ]; then npm ci; \
+    elif [ -f pnpm-lock.yaml ]; then npm i -g pnpm && pnpm i --frozen-lockfile; \
+    elif [ -f yarn.lock ]; then yarn --frozen-lockfile; \
+    elif [ -f bun.lockb ]; then npm i -g bun && bun install --frozen-lockfile; \
+    else npm i; fi
+
+COPY . .
+
+ENV NEXT_TELEMETRY_DISABLED=1
+EXPOSE 3000
+CMD ["npm", "run", "dev", "--", "-H", "0.0.0.0", "-p", "3000"]
